@@ -1,0 +1,33 @@
+{
+  "name": "Onedaytalk Hipmh Extensions",
+  "badgeLabel": "HIPMH",
+  "signingKey": "3e71fa43d85407d60b8f776cb84a6627d615436e8dd1c6b2345de920bfa72d84",
+  "contact": {
+    "website": "https://github.com/Onedaytalk/tachimanga-hipmh-extension"
+  },
+  "extensionList": {
+    "extensions": [
+      {
+        "name": "Hipmh",
+        "packageName": "eu.kanade.tachiyomi.extension.zh.hipmhfast",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/Onedaytalk/tachimanga-hipmh-extension/main/apk/tachimanga-hipmh-v1.2.apk",
+          "iconUrl": "https://raw.githubusercontent.com/Onedaytalk/tachimanga-hipmh-extension/main/icon/eu.kanade.tachiyomi.extension.zh.hipmhfast.png",
+          "jarUrl": "https://raw.githubusercontent.com/Onedaytalk/tachimanga-hipmh-extension/main/apk/tachimanga-hipmh-v1.2.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "106002",
+        "versionName": "1.6.2",
+        "contentWarning": "CONTENT_WARNING_MIXED",
+        "sources": [
+          {
+            "id": "1279151922080842372",
+            "name": "嬉皮漫畫",
+            "language": "zh",
+            "homeUrl": "https://m.hipmh.com"
+          }
+        ]
+      }
+    ]
+  }
+}

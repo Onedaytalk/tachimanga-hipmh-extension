@@ -1,0 +1,4 @@
+08d3d99ef94e119bafdde9f149c8e347979d68bdb90898b1b50de27ddd068e3c  apk/tachimanga-hipmh-v1.2.apk
+45d7f05745615db00616dc8ce54d0e8f0b261b64239f26ca1d354d5fcae724e8  apk/tachimanga-hipmh-v1.2.jar
+662bae0928f8b93798782998a82827d6fa5f5bb67f3b605c3844128f5ac3a9fe  archive/v1.1/tachimanga-hipmh-v1.1.apk
+b214d9ea045075afacfaba5e6f908d86807e541001ff49970504414f988e3a7c  archive/v1.1/tachimanga-hipmh-v1.1.jar

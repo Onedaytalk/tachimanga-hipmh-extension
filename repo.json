@@ -1,0 +1,8 @@
+{
+  "index_v2": "https://raw.githubusercontent.com/Onedaytalk/tachimanga-hipmh-extension/main/index.pb",
+  "meta": {
+    "name": "Onedaytalk Hipmh Extensions",
+    "website": "https://github.com/Onedaytalk/tachimanga-hipmh-extension",
+    "signingKeyFingerprint": "3e71fa43d85407d60b8f776cb84a6627d615436e8dd1c6b2345de920bfa72d84"
+  }
+}
