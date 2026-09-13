@@ -46,9 +46,22 @@ https://raw.githubusercontent.com/Onedaytalk/tachimanga-hipmh-extension/main/ind
 
 後續版本必須維持原套件名稱、來源 ID 與簽署金鑰；更新規則請參閱 [`docs/RELEASING.md`](docs/RELEASING.md)。
 
+## 參考與鳴謝
+
+本擴充由 Codex 全程開發(我是一點都沒碰)。嬉皮漫畫的解析邏輯是依據網站當時公開呈現的頁面與網路介面實作，並非直接複製其他嬉皮漫畫擴充。
+
+本專案的建置架構與相容介面以 [Keiyoushi extensions-source](https://github.com/keiyoushi/extensions-source) 為基礎。開發與除錯期間亦參考下列公開專案：
+
+- [LittleSurvival／copymanga-copy20](https://github.com/LittleSurvival/copymanga-copy20)：中文漫畫擴充與倉庫發布方式參考。
+- [ZhanZiyuan／tachiyomi](https://github.com/ZhanZiyuan/tachiyomi)：Tachiyomi 程式架構與擴充相容性參考。
+- [Tachimanga](https://github.com/tachimanga/tachimanga)：本擴充主要使用的 iOS 應用程式。
+
+感謝上述專案及其貢獻者。本專案為非官方個人維護版本，與上述專案、Tachimanga 及嬉皮漫畫網站均無官方關係；各第三方內容仍依其原授權條款使用。
+
 ## 聲明
 
-本專案與嬉皮漫畫網站、Tachimanga 及 Keiyoushi 均無官方關係。擴充只負責解析公開可存取的網站內容，實際內容及服務可用性由原網站決定。
+1. 本專案與嬉皮漫畫網站、Tachimanga 及 Keiyoushi 均無官方關係。擴充只負責解析公開可存取的網站內容，實際內容及服務可用性由原網站決定。
+2. 主要用途為自用，上傳Github也只是方便更新而已。
 
 ## 授權
 
