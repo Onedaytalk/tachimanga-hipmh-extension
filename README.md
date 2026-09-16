@@ -32,8 +32,6 @@ https://raw.githubusercontent.com/Onedaytalk/tachimanga-hipmh-extension/main/ind
 - 檔案校驗碼：[`SHA256SUMS.txt`](SHA256SUMS.txt)
 - 無法安裝、搜尋或閱讀時，請透過 [Issues](https://github.com/Onedaytalk/tachimanga-hipmh-extension/issues) 回報，並附上 Tachimanga 版本、擴充版本、錯誤畫面與重現步驟。
 
-如果這個擴充對你有幫助，歡迎按下 Star，讓其他 Tachimanga 使用者更容易找到它。
-
 ## 版本
 
 | 版本 | 內容 |
