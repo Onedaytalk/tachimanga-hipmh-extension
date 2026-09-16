@@ -72,6 +72,8 @@ Tachimanga 倉庫只會列出目前版本。需要退回時，可以從 `archive
 - [ZhanZiyuan／tachiyomi](https://github.com/ZhanZiyuan/tachiyomi)：Tachiyomi 程式架構與擴充相容性參考。
 - [Tachimanga](https://github.com/tachimanga/tachimanga)：本擴充主要使用的 iOS 應用程式。
 
+所以想請各位不要幫此專案按星星，而是去上面三個專案按。拜託!!!
+
 感謝上述專案及其貢獻者。本專案為非官方個人維護版本，與上述專案、Tachimanga 及嬉皮漫畫網站均無官方關係；各第三方內容仍依其原授權條款使用。
 
 ## 聲明
