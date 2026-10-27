@@ -3,7 +3,18 @@
 供 iOS Tachimanga 使用的非官方嬉皮漫畫擴充倉庫。
 
 > [!NOTE]
-> 目前版本為 `v1.2`。一般使用者只需加入下方倉庫網址，不需要手動下載 APK／JAR。
+> 目前版本為 `v1.3`，Tachimanga 內部顯示為 `1.6.3`。已加入儲存庫的使用者，重新整理擴充套件頁面後即可更新。
+
+## v1.3 圖片線路設定
+
+- 預設使用網站的線路 2。
+- 在「嬉皮漫畫」來源設定中開啟「圖片線路」，可選擇「線路 2（預設）」或「線路 1」。
+- 切換後請重新載入章節。已下載的圖片不需要重新下載；若 App 仍保留舊的頁面清單，請重新開啟 App 後再載入該章節。
+- 保留 v1.2 的套件名稱、來源 ID 與簽署金鑰，更新時不需要遷移書庫。
+
+### 手動安裝
+
+取得 [v1.3 JAR](apk/tachimanga-hipmh-v1.3.jar)，存到 iPhone 的「檔案」App，再於 Tachimanga「瀏覽」→「擴充」→「＋」選取檔案匯入。Tachimanga 可能顯示版本為 `1.6.3`。
 
 ## 一分鐘安裝
 
@@ -28,7 +39,8 @@ https://raw.githubusercontent.com/Onedaytalk/tachimanga-hipmh-extension/main/ind
 
 ## 下載、校驗與問題回報
 
-- 正式版本與成品：[v1.2 Release](https://github.com/Onedaytalk/tachimanga-hipmh-extension/releases/tag/v1.2)
+- 新版成品：[v1.3 JAR](apk/tachimanga-hipmh-v1.3.jar)。使用 Tachimanga 時也可直接從擴充儲存庫更新。
+- 上一版正式發佈：[v1.2 Release](https://github.com/Onedaytalk/tachimanga-hipmh-extension/releases/tag/v1.2)
 - 檔案校驗碼：[`SHA256SUMS.txt`](SHA256SUMS.txt)
 - 無法安裝、搜尋或閱讀時，請透過 [Issues](https://github.com/Onedaytalk/tachimanga-hipmh-extension/issues) 回報，並附上 Tachimanga 版本、擴充版本、錯誤畫面與重現步驟。
 
@@ -36,18 +48,19 @@ https://raw.githubusercontent.com/Onedaytalk/tachimanga-hipmh-extension/main/ind
 
 | 版本 | 內容 |
 |---|---|
-| `v1.2` | 目前版本，減少更新漫畫時的重複網路請求。 |
+| `v1.3` | 目前版本，預設圖片線路 2，並提供線路切換設定。 |
+| `v1.2` | 減少更新漫畫時的重複網路請求，保留於 `archive/v1.2`。 |
 | `v1.1` | 第一個可用版本，完整保留於 `archive/v1.1`。 |
 
-Tachimanga 倉庫只會列出目前版本。需要退回時，可以從 `archive/v1.1` 手動取得舊成品。
+Tachimanga 倉庫索引只會列出目前版本。舊成品保留於 `archive/v1.1` 或 `archive/v1.2`。
 
 詳細變更請參閱 [`CHANGELOG.md`](CHANGELOG.md)。
 
 ## 倉庫內容
 
 - `src/zh/hipmhfast`：目前版本的原始碼；目錄名稱僅為既有套件的技術識別。
-- `archive/v1.1`：`v1.1` 的原始碼與成品。
-- `apk/`：`v1.2` 的已簽署 APK／JAR。
+- `archive/v1.1`、`archive/v1.2`：舊版原始碼與成品。
+- `apk/`：已簽署 APK／JAR，目前索引列出 `v1.3`。
 - `icon/`：擴充圖示。
 - `index.pb`：Tachimanga 使用的現代索引，包含明確的 `jarUrl`。
 - `index.min.json`：舊格式相容索引。

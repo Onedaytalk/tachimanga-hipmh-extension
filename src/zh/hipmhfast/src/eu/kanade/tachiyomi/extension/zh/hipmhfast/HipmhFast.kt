@@ -1,6 +1,9 @@
 package eu.kanade.tachiyomi.extension.zh.hipmhfast
 
+import androidx.preference.ListPreference
+import androidx.preference.PreferenceScreen
 import eu.kanade.tachiyomi.network.GET
+import eu.kanade.tachiyomi.source.ConfigurableSource
 import eu.kanade.tachiyomi.source.model.FilterList
 import eu.kanade.tachiyomi.source.model.MangasPage
 import eu.kanade.tachiyomi.source.model.Page
@@ -12,6 +15,7 @@ import keiyoushi.network.get
 import keiyoushi.network.rateLimit
 import keiyoushi.source.KeiSource
 import keiyoushi.utils.asJsoup
+import keiyoushi.utils.getPreferencesLazy
 import keiyoushi.utils.parseAs
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.async
@@ -26,7 +30,11 @@ import okhttp3.Request
 import org.jsoup.nodes.Document
 
 @Source
-abstract class HipmhFast : KeiSource() {
+abstract class HipmhFast :
+    KeiSource(),
+    ConfigurableSource {
+
+    private val preferences by getPreferencesLazy()
 
     private val apiUrl = "https://hipapi1.s3file.top"
     private val apiHost = apiUrl.toHttpUrl().host
@@ -220,18 +228,14 @@ abstract class HipmhFast : KeiSource() {
         val response = client.get(url).parseAs<ApiResponse<ChapterData>>()
         response.requireSuccess()
 
-        val imageHost = when (response.data.line) {
-            9 -> config.firstNonBlankAttribute(
-                "data-chapter-img-base-line1s",
-                "data-chapter-img-base-line2s",
-                "data-chapter-img-base",
-            )
-            else -> config.firstNonBlankAttribute(
-                "data-chapter-img-base-line1",
-                "data-chapter-img-base-line2",
-                "data-chapter-img-base",
-            )
-        } ?: error("Missing chapter image host")
+        val preferredLine = if (preferences.getString(IMAGE_LINE_PREF, DEFAULT_IMAGE_LINE) == "line1") "line1" else "line2"
+        val alternateLine = if (preferredLine == "line1") "line2" else "line1"
+        val suffix = if (response.data.line == 9) "s" else ""
+        val imageHost = config.firstNonBlankAttribute(
+            "data-chapter-img-base-$preferredLine$suffix",
+            "data-chapter-img-base-$alternateLine$suffix",
+            "data-chapter-img-base",
+        ) ?: error("Missing chapter image host")
 
         val imagePaths = ChapterDecoder.decode(response.data.images).toMutableList()
         removeDecoyImage(imagePaths, response.data.orderId, response.data.sid)
@@ -252,6 +256,17 @@ abstract class HipmhFast : KeiSource() {
             .set("Referer", "$readerBaseUrl/")
             .build()
         return GET(page.imageUrl!!, imageHeaders)
+    }
+
+    override fun setupPreferenceScreen(screen: PreferenceScreen) {
+        ListPreference(screen.context).apply {
+            key = IMAGE_LINE_PREF
+            title = "圖片線路"
+            entries = arrayOf("線路 2（預設）", "線路 1")
+            entryValues = arrayOf("line2", "line1")
+            setDefaultValue(DEFAULT_IMAGE_LINE)
+            summary = "已選擇：%s\n圖片載入較慢時可切換；切換後請重新載入章節。"
+        }.let(screen::addPreference)
     }
 
     private fun SManga.mangaId(): String = url.substringAfter("/works/").substringBefore('-')
@@ -287,6 +302,8 @@ abstract class HipmhFast : KeiSource() {
     }
 
     companion object {
+        private const val IMAGE_LINE_PREF = "image_line"
+        private const val DEFAULT_IMAGE_LINE = "line2"
         private const val PAGE_SIZE = 20
         private const val CHAPTER_PAGE_SIZE = 50
         private const val DECOY_SID_FACTOR = 2_654_435_761L
