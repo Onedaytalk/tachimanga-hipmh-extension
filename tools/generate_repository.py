@@ -19,11 +19,11 @@ EXTENSIONS = [
     {
         "name": "Hipmh",
         "packageName": "eu.kanade.tachiyomi.extension.zh.hipmhfast",
-        "apk": "tachimanga-hipmh-v1.3.apk",
-        "jar": "tachimanga-hipmh-v1.3.jar",
+        "apk": "tachimanga-hipmh-v1.4.apk",
+        "jar": "tachimanga-hipmh-v1.4.jar",
         "extensionLib": "1.6",
-        "versionCode": 106003,
-        "versionName": "1.6.3",
+        "versionCode": 106004,
+        "versionName": "1.6.4",
         "contentWarning": 2,
         "source": {
             "id": 1279151922080842372,

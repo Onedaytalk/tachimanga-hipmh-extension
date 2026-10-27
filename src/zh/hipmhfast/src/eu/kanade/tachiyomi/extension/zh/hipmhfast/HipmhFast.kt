@@ -28,6 +28,8 @@ import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.jsoup.nodes.Document
+import java.util.Collections
+import java.util.LinkedHashMap
 
 @Source
 abstract class HipmhFast :
@@ -35,6 +37,13 @@ abstract class HipmhFast :
     ConfigurableSource {
 
     private val preferences by getPreferencesLazy()
+
+    // List/search responses omit language, so retain only a bounded cache of language codes.
+    private val mangaLanguages = Collections.synchronizedMap(
+        object : LinkedHashMap<String, String>(64, 0.75f, true) {
+            override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, String>?): Boolean = size > LANGUAGE_CACHE_SIZE
+        },
+    )
 
     private val apiUrl = "https://hipapi1.s3file.top"
     private val apiHost = apiUrl.toHttpUrl().host
@@ -58,7 +67,7 @@ abstract class HipmhFast :
         val response = client.get(url).parseAs<ApiResponse<MangaPageData>>()
         response.requireSuccess()
         return MangasPage(
-            response.data.items.map { it.toSManga(::resolveCoverUrl) },
+            prioritizeLanguage(response.data.items.map { it.toSManga(::resolveCoverUrl) }),
             page < response.data.totalPages,
         )
     }
@@ -76,9 +85,24 @@ abstract class HipmhFast :
         val response = client.get(url).parseAs<ApiResponse<SearchPageData>>()
         response.requireSuccess()
         return MangasPage(
-            response.data.items.map { it.toSManga(::resolveCoverUrl) },
+            prioritizeLanguage(response.data.items.map { it.toSManga(::resolveCoverUrl) }),
             page < response.data.totalPages,
         )
+    }
+
+    private suspend fun prioritizeLanguage(mangas: List<SManga>): List<SManga> {
+        val preferredLanguage = preferences.getString(MANGA_LANGUAGE_PREF, DEFAULT_MANGA_LANGUAGE)
+            ?.takeIf { it == "zh" || it == "tw" }
+            ?: return mangas
+        val languages = coroutineScope {
+            mangas.distinctBy { it.mangaId() }.map { manga ->
+                async {
+                    val id = manga.mangaId()
+                    id to (mangaLanguages[id] ?: fetchMangaSummaryOrNull(manga)?.language)
+                }
+            }.awaitAll().toMap()
+        }
+        return mangas.sortedBy { if (languages[it.mangaId()] == preferredLanguage) 0 else 1 }
     }
 
     override fun getMangaUrl(manga: SManga): String = when {
@@ -144,7 +168,9 @@ abstract class HipmhFast :
             .build()
         val response = client.get(url).parseAs<ApiResponse<MangaDetailsData>>()
         response.requireSuccess()
-        response.data
+        response.data.also { data ->
+            data.language?.takeIf(String::isNotBlank)?.let { mangaLanguages[manga.mangaId()] = it }
+        }
     } catch (e: CancellationException) {
         throw e
     } catch (_: Exception) {
@@ -267,6 +293,15 @@ abstract class HipmhFast :
             setDefaultValue(DEFAULT_IMAGE_LINE)
             summary = "已選擇：%s\n圖片載入較慢時可切換；切換後請重新載入章節。"
         }.let(screen::addPreference)
+
+        ListPreference(screen.context).apply {
+            key = MANGA_LANGUAGE_PREF
+            title = "漫畫語言"
+            entries = arrayOf("不限語言（原始排序）", "優先簡體中文", "優先繁體中文")
+            entryValues = arrayOf(DEFAULT_MANGA_LANGUAGE, "zh", "tw")
+            setDefaultValue(DEFAULT_MANGA_LANGUAGE)
+            summary = "已選擇：%s\n每頁優先顯示所選語言，其他版本仍會保留；書庫維持原版本。"
+        }.let(screen::addPreference)
     }
 
     private fun SManga.mangaId(): String = url.substringAfter("/works/").substringBefore('-')
@@ -304,6 +339,9 @@ abstract class HipmhFast :
     companion object {
         private const val IMAGE_LINE_PREF = "image_line"
         private const val DEFAULT_IMAGE_LINE = "line2"
+        private const val MANGA_LANGUAGE_PREF = "manga_language"
+        private const val DEFAULT_MANGA_LANGUAGE = "all"
+        private const val LANGUAGE_CACHE_SIZE = 512
         private const val PAGE_SIZE = 20
         private const val CHAPTER_PAGE_SIZE = 50
         private const val DECOY_SID_FACTOR = 2_654_435_761L

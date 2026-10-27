@@ -3,9 +3,23 @@
 供 iOS Tachimanga 使用的非官方嬉皮漫畫擴充倉庫。
 
 > [!NOTE]
-> 目前版本為 `v1.3`，Tachimanga 內部顯示為 `1.6.3`。已加入儲存庫的使用者，重新整理擴充套件頁面後即可更新。
+> 目前版本為 `v1.4`，Tachimanga 內部顯示為 `1.6.4`。已加入儲存庫的使用者，重新整理擴充套件頁面後即可更新。
 
-## v1.3 圖片線路設定
+## 漫畫語言設定
+
+在「嬉皮漫畫」來源設定中開啟「漫畫語言」，可選擇：
+
+- 不限語言（原始排序，預設）。
+- 優先簡體中文。
+- 優先繁體中文。
+
+設定影響搜尋、人氣及最新列表的每頁排序；其他語言版本仍會保留，各語言內維持原始順序。切換後請重新整理列表。
+
+網站把不同語言版本視為獨立作品，因此此設定不會更換已加入書庫的作品與章節。若要把既有作品改成另一版本，可使用 Tachimanga 的來源遷移功能選擇對應作品。
+
+第一次對某批作品使用優先排序時，會查詢作品的實際語言資料；已查過的資訊會暫存以減少重複等待。使用原始排序不會增加語言查詢。
+
+## 圖片線路設定
 
 - 預設使用網站的線路 2。
 - 在「嬉皮漫畫」來源設定中開啟「圖片線路」，可選擇「線路 2（預設）」或「線路 1」。
@@ -14,7 +28,7 @@
 
 ### 手動安裝
 
-取得 [v1.3 JAR](apk/tachimanga-hipmh-v1.3.jar)，存到 iPhone 的「檔案」App，再於 Tachimanga「瀏覽」→「擴充」→「＋」選取檔案匯入。Tachimanga 可能顯示版本為 `1.6.3`。
+取得 [v1.4 JAR](apk/tachimanga-hipmh-v1.4.jar)，存到 iPhone 的「檔案」App，再於 Tachimanga「瀏覽」→「擴充」→「＋」選取檔案匯入。Tachimanga 可能顯示版本為 `1.6.4`。
 
 ## 一分鐘安裝
 
@@ -39,7 +53,7 @@ https://raw.githubusercontent.com/Onedaytalk/tachimanga-hipmh-extension/main/ind
 
 ## 下載、校驗與問題回報
 
-- 新版成品：[v1.3 JAR](apk/tachimanga-hipmh-v1.3.jar)。使用 Tachimanga 時也可直接從擴充儲存庫更新。
+- 新版成品：[v1.4 JAR](apk/tachimanga-hipmh-v1.4.jar)。使用 Tachimanga 時也可直接從擴充儲存庫更新。
 - 上一版正式發佈：[v1.2 Release](https://github.com/Onedaytalk/tachimanga-hipmh-extension/releases/tag/v1.2)
 - 檔案校驗碼：[`SHA256SUMS.txt`](SHA256SUMS.txt)
 - 無法安裝、搜尋或閱讀時，請透過 [Issues](https://github.com/Onedaytalk/tachimanga-hipmh-extension/issues) 回報，並附上 Tachimanga 版本、擴充版本、錯誤畫面與重現步驟。
@@ -48,19 +62,20 @@ https://raw.githubusercontent.com/Onedaytalk/tachimanga-hipmh-extension/main/ind
 
 | 版本 | 內容 |
 |---|---|
-| `v1.3` | 目前版本，預設圖片線路 2，並提供線路切換設定。 |
+| `v1.4` | 目前版本，新增漫畫語言優先排序，保留其他語言版本。 |
+| `v1.3` | 預設圖片線路 2，並提供線路切換設定，保留於 `archive/v1.3`。 |
 | `v1.2` | 減少更新漫畫時的重複網路請求，保留於 `archive/v1.2`。 |
 | `v1.1` | 第一個可用版本，完整保留於 `archive/v1.1`。 |
 
-Tachimanga 倉庫索引只會列出目前版本。舊成品保留於 `archive/v1.1` 或 `archive/v1.2`。
+Tachimanga 倉庫索引只會列出目前版本。舊成品保留於 `archive/v1.1`、`archive/v1.2` 或 `archive/v1.3`。
 
 詳細變更請參閱 [`CHANGELOG.md`](CHANGELOG.md)。
 
 ## 倉庫內容
 
 - `src/zh/hipmhfast`：目前版本的原始碼；目錄名稱僅為既有套件的技術識別。
-- `archive/v1.1`、`archive/v1.2`：舊版原始碼與成品。
-- `apk/`：已簽署 APK／JAR，目前索引列出 `v1.3`。
+- `archive/v1.1`、`archive/v1.2`、`archive/v1.3`：舊版原始碼與成品。
+- `apk/`：已簽署 APK／JAR，目前索引列出 `v1.4`。
 - `icon/`：擴充圖示。
 - `index.pb`：Tachimanga 使用的現代索引，包含明確的 `jarUrl`。
 - `index.min.json`：舊格式相容索引。

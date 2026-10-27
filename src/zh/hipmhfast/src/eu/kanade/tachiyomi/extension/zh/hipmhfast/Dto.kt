@@ -44,6 +44,7 @@ class MangaListItem(
 @Serializable
 class MangaDetailsData(
     val title: String,
+    val language: String? = null,
     @SerialName("vertical_image_url") private val verticalImageUrl: String? = null,
     @SerialName("cover_image_url") private val coverImageUrl: String? = null,
     private val description: String? = null,
